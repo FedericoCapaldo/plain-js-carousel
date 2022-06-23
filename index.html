@@ -41,7 +41,7 @@
 
         .btn {
           position: absolute;
-          width: 70px;
+          width: 65px;
           height: 350px;
           border: none;
           z-index: 10px;
@@ -52,15 +52,22 @@
         }
 
         .custom-arrow {
-          display: none;
+          visibility: hidden;
+          opacity: 0;
+          transition: visibility 0s, opacity 0.2s linear;
         }
 
         .slider:hover > .btn > .custom-arrow {
-          display: block;
+          visibility: visible;
+          opacity: 1;
         }
 
         .btn:hover {
           transform: scale(1.07);
+        }
+
+        .btn:active {
+          transform: scale(1.00);
         }
 
         .btn-prev {
