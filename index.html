@@ -1,6 +1,9 @@
 <html>
   <head>
     <title>Carousel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
       * {
           margin: 0;
@@ -16,16 +19,15 @@
 
         .slider {
           width: 100%;
-          max-width: 800px;
+          max-width: 500px;
           height: 350px;
           position: relative;
           overflow: hidden; /* <===  */
-          border-radius: 15px;
         }
 
         .slide {
           width: 100%;
-          max-width: 800px;
+          max-width: 500px;
           height: 350px;
           position: absolute;
           transition: all 0.5s;
@@ -39,27 +41,36 @@
 
         .btn {
           position: absolute;
-          width: 40px;
-          height: 40px;
-          padding: 10px;
+          width: 70px;
+          height: 350px;
           border: none;
-          border-radius: 50%;
           z-index: 10px;
           cursor: pointer;
-          background-color: #fff;
-          font-size: 18px;
+          background-color: transparent;
+          font-size: 45px;
+          color: #fff;
         }
-        .btn:active {
-          transform: scale(1.1);
+
+        .custom-arrow {
+          display: none;
         }
+
+        .slider:hover > .btn > .custom-arrow {
+          display: block;
+        }
+
+        .btn:hover {
+          transform: scale(1.07);
+        }
+
         .btn-prev {
-          top: 45%;
-          left: 2%;
+          top: 0;
+          left: 0;
         }
 
         .btn-next {
-          top: 45%;
-          right: 2%;
+          top: 0;
+          right: 0;
         }
     </style>
   </head>
@@ -68,17 +79,17 @@
     <div class="slider">
       <!-- slide 1 -->
       <div class="slide">
-        <img src="https://source.unsplash.com/random?landscape,mountain" alt="" />
+        <img src="images/EXTRA_beef_rump_steak_cut_into_pieces_2_shutterstock_204067027.jpeg" alt="" />
       </div>
 
       <!-- slide 2 -->
       <div class="slide">
-        <img src="https://source.unsplash.com/random?landscape,cars" alt="" />
+        <img src="images/Picanha.jpeg" alt="" />
       </div>
 
       <!-- slide 3 -->
       <div class="slide">
-        <img src="https://source.unsplash.com/random?landscape,night" alt="" />
+        <img src="images/Whole-Rump-Cap__07635_179351e2-491a-4251-a28a-b1d1b570f051.jpeg" alt="" />
       </div>
 
       <!-- slide 4 -->
@@ -87,9 +98,8 @@
       </div>
 
       <!-- Control buttons -->
-      <button class="btn btn-next"> > </button>
-      <button class="btn btn-prev">
-        < </button>
+      <button class="btn btn-next"> <i class="fa-solid fa-angle-right custom-arrow"></i> </button>
+      <button class="btn btn-prev"> <i class="fa-solid fa-angle-left custom-arrow"></i> </button>
     </div>
   </body>
   <script>
