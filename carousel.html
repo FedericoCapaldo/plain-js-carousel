@@ -58,6 +58,16 @@
           transition: visibility 0.2s, opacity 0.2s linear;
         }
 
+        .btn-prev {
+          top: 0;
+          left: 0;
+        }
+
+        .btn-next {
+          top: 0;
+          right: 0;
+        }
+
         @media screen and (min-width: 980px) {
           .slider:hover > .btn > .custom-arrow {
             visibility: visible;
@@ -71,16 +81,6 @@
           .btn:active {
             transform: scale(1.00);
           }
-        }
-
-        .btn-prev {
-          top: 0;
-          left: 0;
-        }
-
-        .btn-next {
-          top: 0;
-          right: 0;
         }
     </style>
   </head>
@@ -114,7 +114,7 @@
   </body>
   <script>
     "use strict";
-      // Select all slides
+      // DESKTOP LOGIC FOR SLIDES
       const slides = document.querySelectorAll(".slide");
 
       // loop through slides and set each slides translateX
@@ -166,8 +166,9 @@
 
 
       // MOBILE LOGIC FOR SLIDES
-      document.addEventListener('touchstart', handleTouchStart, false);
-      document.addEventListener('touchmove', handleTouchMove, false);
+      const slider = document.querySelectorAll(".slider")[0];
+      slider.addEventListener('touchstart', handleTouchStart, false);
+      slider.addEventListener('touchmove', handleTouchMove, false);
 
       var xDown = null;
       var yDown = null;
