@@ -246,12 +246,16 @@
 
             indicatorButtons[0].classList.add('current-indicator');
 
-            // horizontal center positioning
-            const sliderWidth = document.getElementsByClassName('slider')[0].offsetWidth;
-            const halfIndicatorWidthPlusMargin = 8;
-            const leftPosition = (sliderWidth /2) - ((maxSlide+1) * halfIndicatorWidthPlusMargin);
-            indicatorContainer.style.left = `${leftPosition}px`;
+            horizontallyPositionCarouselIndicators();
           }
+        }
+
+        function horizontallyPositionCarouselIndicators() {
+          // horizontal center positioning
+          const sliderWidth = document.getElementsByClassName('slider')[0].offsetWidth;
+          const halfIndicatorWidthPlusMargin = 8;
+          const leftPosition = (sliderWidth / 2) - ((maxSlide + 1) * halfIndicatorWidthPlusMargin);
+          indicatorContainer.style.left = `${leftPosition}px`;
         }
 
         function updateIndicators() {
@@ -273,5 +277,10 @@
           repositionSlides(curSlide);
           setIndicators();
         };
+
+        // added to account screen rotation on mobile
+        window.addEventListener('resize', function (event) {
+          horizontallyPositionCarouselIndicators();
+        });
   </script>
 </html>
