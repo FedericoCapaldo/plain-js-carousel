@@ -7,7 +7,35 @@ const prevSlide = document.querySelector(".btn-prev");
 const indicatorContainer = document.querySelector('.carousel-indicators');
 const indicatorButtons = [];
 
-// DESKTOP LOGIC FOR SLIDES
+const slideMove = Object.freeze({
+  LEFT: "left",
+  RIGHT: "right",
+});
+
+function updateCurrentSlide(move, allowRewind=false) {
+  if (move == slideMove.LEFT) {
+    if (curSlide === 0) {
+      if (allowRewind) {
+        curSlide = maxSlide;
+      } else {
+        return;
+      }
+    } else {
+      curSlide--;
+    }
+  } else if (move == slideMove.RIGHT) {
+    if (curSlide === maxSlide) {
+      if (allowRewind) {
+        curSlide = 0;
+      } else {
+        return;
+      }
+    } else {
+      curSlide++;
+    }
+  }
+}
+
 function repositionSlides(curSlide) {
   // loop through slides and set each slides translateX
   // (to basically set which one is visible)
@@ -16,25 +44,30 @@ function repositionSlides(curSlide) {
   });
 }
 
+// DESKTOP LOGIC FOR SLIDES
 nextSlide.addEventListener("click", function () {
-  if (curSlide === maxSlide) {
-    curSlide = 0;
-  } else {
-    curSlide++;
-  }
+  updateCurrentSlide(slideMove.RIGHT, true);
   repositionSlides(curSlide);
   updateIndicators();
 });
 prevSlide.addEventListener("click", function () {
-  if (curSlide === 0) {
-    curSlide = maxSlide;
-  } else {
-    curSlide--;
-  }
+  updateCurrentSlide(slideMove.LEFT, true);
   repositionSlides(curSlide);
   updateIndicators();
 });
 
+// keyboard arrows sliding
+document.addEventListener("keydown", function (e) {
+  if (!e.repeat) {
+    if (e.key == "ArrowLeft") {
+      updateCurrentSlide(slideMove.LEFT);
+    } else if (e.key == "ArrowRight") {
+      updateCurrentSlide(slideMove.RIGHT);
+    }
+  }
+  repositionSlides(curSlide);
+  updateIndicators();
+});
 
 // MOBILE LOGIC FOR SLIDES
 slider.addEventListener('touchstart', handleTouchStart, false);
@@ -68,18 +101,10 @@ function handleTouchMove(evt) {
   if (Math.abs(xDiff) > Math.abs(yDiff)) {
     if (xDiff > 0) {
       /* right swipe */
-      if (curSlide === maxSlide) {
-        return;
-      } else {
-        curSlide++;
-      }
+      updateCurrentSlide(slideMove.RIGHT);
     } else {
       /* left swipe */
-      if (curSlide === 0) {
-        return;
-      } else {
-        curSlide--;
-      }
+      updateCurrentSlide(slideMove.LEFT);
     }
     repositionSlides(curSlide);
     updateIndicators();
@@ -89,7 +114,7 @@ function handleTouchMove(evt) {
   yDown = null;
 };
 
-// carousel indicator logic
+// carousel indicators logic
 function setIndicators() {
   if (indicatorContainer !== null) {
     for (let i = 0; i <= maxSlide; i++) {
@@ -128,24 +153,9 @@ function updateIndicators() {
   });
 }
 
-document.addEventListener("keydown", function (e) {
-  if (!e.repeat) {
-    if (e.key == "ArrowLeft") {
-      if (curSlide === 0) {
-        return;
-      } else {
-        curSlide--;
-      }
-    } else if (e.key == "ArrowRight") {
-      if (curSlide === maxSlide) {
-        return;
-      } else {
-        curSlide++;
-      }
-    }
-  }
-  repositionSlides(curSlide);
-  updateIndicators();
+// added to account screen rotation on mobile
+window.addEventListener('resize', function (event) {
+  horizontallyPositionCarouselIndicators();
 });
 
 
@@ -153,8 +163,3 @@ window.onload = function (event) {
   repositionSlides(curSlide);
   setIndicators();
 };
-
-// added to account screen rotation on mobile
-window.addEventListener('resize', function (event) {
-  horizontallyPositionCarouselIndicators();
-});
