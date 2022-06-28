@@ -128,6 +128,25 @@ function updateIndicators() {
   });
 }
 
+document.addEventListener("keydown", function (e) {
+  if (!e.repeat) {
+    if (e.key == "ArrowLeft") {
+      if (curSlide === 0) {
+        return;
+      } else {
+        curSlide--;
+      }
+    } else if (e.key == "ArrowRight") {
+      if (curSlide === maxSlide) {
+        return;
+      } else {
+        curSlide++;
+      }
+    }
+  }
+  repositionSlides(curSlide);
+  updateIndicators();
+});
 
 
 window.onload = function (event) {
