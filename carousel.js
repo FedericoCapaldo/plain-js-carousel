@@ -57,6 +57,14 @@ prevSlide.addEventListener("click", function () {
 // keyboard arrows sliding
 document.addEventListener("keydown", function (e) {
   if (!e.repeat) {
+    // deselecting active element
+    // (in case arrow is selected, so as not to show button borders
+    //  comment code out to see the difference)
+    const activeElement = document.activeElement;
+    if (activeElement) {
+      activeElement.blur();
+    }
+
     if (e.key === "ArrowLeft") {
       updateCurrentSlide(slideMove.LEFT);
     } else if (e.key === "ArrowRight") {
