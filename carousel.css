@@ -38,7 +38,6 @@ body {
   width: 65px;
   height: 350px;
   border: none;
-  z-index: 10px;
   cursor: pointer;
   background-color: transparent;
   font-size: 45px;
@@ -79,10 +78,10 @@ body {
 /* carousel indicator style */
 .product-carousel-indicators {
   margin: 0 auto;
+  margin-bottom: 1rem;
   position: absolute;
   bottom: 0;
   left: 43%;
-  margin-bottom: 1rem;
 }
 
 .product-carousel-indicators button {

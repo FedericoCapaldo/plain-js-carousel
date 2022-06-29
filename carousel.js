@@ -13,22 +13,18 @@ const slideMove = Object.freeze({
 });
 
 function updateCurrentSlide(move, allowRewind=false) {
-  if (move == slideMove.LEFT) {
+  if (move === slideMove.LEFT) {
     if (curSlide === 0) {
       if (allowRewind) {
         curSlide = maxSlide;
-      } else {
-        return;
       }
     } else {
       curSlide--;
     }
-  } else if (move == slideMove.RIGHT) {
+  } else if (move === slideMove.RIGHT) {
     if (curSlide === maxSlide) {
       if (allowRewind) {
         curSlide = 0;
-      } else {
-        return;
       }
     } else {
       curSlide++;
@@ -39,8 +35,10 @@ function updateCurrentSlide(move, allowRewind=false) {
 function repositionSlides(curSlide) {
   // loop through slides and set each slides translateX
   // (to basically set which one is visible)
-  document.querySelectorAll(".product-carousel-slide").forEach((slide, indx) => {
-    slide.style.transform = `translateX(${100 * (indx - curSlide)}%)`;
+  document
+      .querySelectorAll(".product-carousel-slide")
+      .forEach((slide, index) => {
+        slide.style.transform = `translateX(${100 * (index - curSlide)}%)`;
   });
 }
 
@@ -59,9 +57,9 @@ prevSlide.addEventListener("click", function () {
 // keyboard arrows sliding
 document.addEventListener("keydown", function (e) {
   if (!e.repeat) {
-    if (e.key == "ArrowLeft") {
+    if (e.key === "ArrowLeft") {
       updateCurrentSlide(slideMove.LEFT);
-    } else if (e.key == "ArrowRight") {
+    } else if (e.key === "ArrowRight") {
       updateCurrentSlide(slideMove.RIGHT);
     }
   }
@@ -73,8 +71,8 @@ document.addEventListener("keydown", function (e) {
 slider.addEventListener('touchstart', handleTouchStart, false);
 slider.addEventListener('touchmove', handleTouchMove, false);
 
-var xDown = null;
-var yDown = null;
+let xDown = null;
+let yDown = null;
 
 function getTouches(evt) {
   return evt.touches ||             // browser API
@@ -85,18 +83,18 @@ function handleTouchStart(evt) {
   const firstTouch = getTouches(evt)[0];
   xDown = firstTouch.clientX;
   yDown = firstTouch.clientY;
-};
+}
 
 function handleTouchMove(evt) {
   if (!xDown || !yDown) {
     return;
   }
 
-  var xUp = evt.touches[0].clientX;
-  var yUp = evt.touches[0].clientY;
+  const xUp = evt.touches[0].clientX;
+  const yUp = evt.touches[0].clientY;
 
-  var xDiff = xDown - xUp;
-  var yDiff = yDown - yUp;
+  let xDiff = xDown - xUp;
+  let yDiff = yDown - yUp;
 
   if (Math.abs(xDiff) > Math.abs(yDiff)) {
     if (xDiff > 0) {
@@ -112,7 +110,7 @@ function handleTouchMove(evt) {
   /* reset values */
   xDown = null;
   yDown = null;
-};
+}
 
 // carousel indicators logic
 function setIndicators() {
@@ -154,12 +152,12 @@ function updateIndicators() {
 }
 
 // added to account screen rotation on mobile
-window.addEventListener('resize', function (event) {
+window.addEventListener('resize', function () {
   horizontallyPositionCarouselIndicators();
 });
 
 
-window.onload = function (event) {
+window.onload = function () {
   repositionSlides(curSlide);
   setIndicators();
 };
