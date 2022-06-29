@@ -1,10 +1,10 @@
 "use strict";
 let curSlide = 0;
-let maxSlide = document.querySelectorAll(".slide").length - 1;
-const slider = document.querySelectorAll(".slider")[0];
-const nextSlide = document.querySelector(".btn-next");
-const prevSlide = document.querySelector(".btn-prev");
-const indicatorContainer = document.querySelector('.carousel-indicators');
+let maxSlide = document.querySelectorAll(".product-carousel-slide").length - 1;
+const slider = document.querySelectorAll(".product-carousel-slider")[0];
+const nextSlide = document.querySelector(".product-carousel-btn-next");
+const prevSlide = document.querySelector(".product-carousel-btn-prev");
+const indicatorContainer = document.querySelector('.product-carousel-indicators');
 const indicatorButtons = [];
 
 const slideMove = Object.freeze({
@@ -39,7 +39,7 @@ function updateCurrentSlide(move, allowRewind=false) {
 function repositionSlides(curSlide) {
   // loop through slides and set each slides translateX
   // (to basically set which one is visible)
-  document.querySelectorAll(".slide").forEach((slide, indx) => {
+  document.querySelectorAll(".product-carousel-slide").forEach((slide, indx) => {
     slide.style.transform = `translateX(${100 * (indx - curSlide)}%)`;
   });
 }
@@ -133,7 +133,7 @@ function setIndicators() {
 
 function horizontallyPositionCarouselIndicators() {
   // horizontal center positioning
-  const sliderWidth = document.getElementsByClassName('slider')[0].offsetWidth;
+  const sliderWidth = document.getElementsByClassName('product-carousel-slider')[0].offsetWidth;
   const halfIndicatorWidthPlusMargin = 8;
   const leftPosition = (sliderWidth / 2) - ((maxSlide + 1) * halfIndicatorWidthPlusMargin);
   indicatorContainer.style.left = `${leftPosition}px`;
